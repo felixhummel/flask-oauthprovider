@@ -4,7 +4,7 @@ from models import ResourceOwner as User
 from models import db_session
 from flask import g, session, render_template, request, redirect, flash
 from flask import abort, url_for
-from flaskext.openid import OpenID
+from flask_openid import OpenID
 
 # setup flask-openid
 oid = OpenID(app)

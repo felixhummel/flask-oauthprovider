@@ -5,7 +5,7 @@ This serves as a base, use hmac_client.py, rsa_client.py or
 plaintext_client.py depending on which signature type you wish to test.
 """
 import requests
-from requests.auth import OAuth1
+from requests_oauthlib import OAuth1
 from flask import Flask, redirect, request, session
 from urlparse import parse_qsl, urlparse
 
@@ -24,7 +24,10 @@ def start():
         callback_uri=u"http://client.local:5001/callback",
         **app.config["OAUTH_CREDENTIALS"])
 
-    r = requests.post(u"http://127.0.0.1:5000/request_token?realm=secret", auth=client)
+    headers = {'content-type': 'application/x-www-form-urlencoded'}
+    r = requests.post(u"http://127.0.0.1:5000/request_token?realm=secret",
+            auth=client,
+            headers=headers)
     print r.content
     data = dict(parse_qsl(r.content))
     resource_owner = data.get(u'oauth_token')
