@@ -1,0 +1,22 @@
+# virtualenv
+bin/
+bin/pip-2.7
+bin/activate
+bin/easy_install-2.7
+bin/python
+bin/activate.fish
+bin/easy_install
+bin/activate.csh
+bin/activate_this.py
+bin/pip
+include/
+lib/
+local/
+
+# this
+flask-oauthprovider.db
+
+# intellij
+.idea/
+examples.iml
+
