@@ -3,8 +3,10 @@
 {% block body %}
   <form action="" method="POST">
     {% if error %}<p class=error><strong>Error:</strong> {{ error }}</p>{% endif %}
-    <label>OpenID</label>
-      <input type=text name=openid size=30/>
+    <label>Login</label>
+      <input type=text name=username size=30/>
+      <br/>
+      <input type=text name=password size=30/>
       <br/>
       <button type="submit" class="btn">Sign in</button>
       <input type=hidden name=next value="{{ next }}">

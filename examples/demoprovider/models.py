@@ -10,24 +10,42 @@ Base.query = db_session.query_property()
 
 def init_db():
     Base.metadata.create_all(bind=engine)
+    foo = ResourceOwner('foo', 'foo@example.org', 'bar')
 
+    db_session.add(foo)
+    # add client
+    # see /demoprovider/provider.py
+    info = {
+        u"client_key": 'EDwsTDy5SN1pdBF1hZ8De37oyfxzpJ',
+        u"name": 'debug client',
+        u"description": None,
+        u"secret": 'ZDaxszXUOUc1cyH4RrGtjVpNm78q9g',
+        u"pubkey": None
+    }
+    client = Client(**info)
+    client.callbacks.append(Callback('http://client.local:5001/callback'))
+    client.resource_owner = foo
+    db_session.add(client)
+
+    db_session.commit()
 
 class ResourceOwner(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    # TODO http://www.unlimitednovelty.com/2012/03/dont-use-bcrypt.html
+    password = Column(String)
     email = Column(String)
-    openid = Column(String)
 
     request_tokens = relationship("RequestToken", order_by="RequestToken.id")
     access_tokens = relationship("AccessToken", order_by="AccessToken.id")
     clients = relationship("Client", order_by="Client.id")
 
-    def __init__(self, name, email, openid):
+    def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.openid = openid
+        self.password = password
 
     def __repr__(self):
         return "<ResourceOwner (%s, %s)>" % (self.name, self.email)

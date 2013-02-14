@@ -18,6 +18,7 @@ class ExampleProvider(OAuthProvider):
 
     @require_login
     def authorize(self):
+        """Check """
         if request.method == u"POST":
             token = request.form.get("oauth_token")
             return self.authorized(token)
