@@ -27,3 +27,12 @@ def test_client_creds(client_creds):
     assert len(client_creds['key']) == 30
     assert len(client_creds['secret']) == 30
 
+def test_login(client):
+    # get renders form
+    response = client.get('/login')
+    assert response.status_code == 200
+    # POST redirects
+    response = client.post('/login?next=http://example.org/test?qoo=qux', data=dict(username='foo', password='bar'))
+    assert response.status_code == 302
+    assert response.location == 'http://example.org/test?qoo=qux'
+

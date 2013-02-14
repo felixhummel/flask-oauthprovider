@@ -19,13 +19,13 @@ class ExampleProvider(OAuthProvider):
     @require_login
     def authorize(self):
         """Check """
+        # TODO: Authenticate client
+        token = None
         if request.method == u"POST":
             token = request.form.get("oauth_token")
-            return self.authorized(token)
         else:
-            # TODO: Authenticate client
             token = request.args.get(u"oauth_token")
-            return render_template(u"authorize.html", token=token)
+        return self.authorized(token)
 
     @require_login
     def register(self):
