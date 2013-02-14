@@ -4,4 +4,4 @@ app.config["OAUTH_CREDENTIALS"] = {
     u"signature_method": u"PLAINTEXT"
 }
 app.config["CLIENT_KEY"] = u"EDwsTDy5SN1pdBF1hZ8De37oyfxzpJ"
-app.run(debug=True, port=5001)
+app.run(debug=True, port=5001, host='0.0.0.0')
