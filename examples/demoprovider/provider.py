@@ -3,7 +3,7 @@ from flask.ext.oauthprovider import OAuthProvider
 from sqlalchemy.orm.exc import NoResultFound
 from models import ResourceOwner, Client, Nonce, Callback
 from models import RequestToken, AccessToken, db_session
-from utils import require_openid
+from utils import require_login
 
 
 class ExampleProvider(OAuthProvider):
@@ -16,7 +16,7 @@ class ExampleProvider(OAuthProvider):
     def realms(self):
         return [u"secret", u"trolling"]
 
-    @require_openid
+    @require_login
     def authorize(self):
         if request.method == u"POST":
             token = request.form.get("oauth_token")
@@ -26,7 +26,7 @@ class ExampleProvider(OAuthProvider):
             token = request.args.get(u"oauth_token")
             return render_template(u"authorize.html", token=token)
 
-    @require_openid
+    @require_login
     def register(self):
         if request.method == u'POST':
             client_key = self.generate_client_key()
