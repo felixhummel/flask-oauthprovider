@@ -23,7 +23,8 @@ def init_db():
         u"pubkey": None
     }
     client = Client(**info)
-    client.callbacks.append(Callback('http://client.local:5001/callback'))
+    client.callbacks.append(Callback('http://client.local/callback.php'))
+    #client.callbacks.append(Callback('http://client.local:5001/callback'))
     client.resource_owner = foo
     db_session.add(client)
 
