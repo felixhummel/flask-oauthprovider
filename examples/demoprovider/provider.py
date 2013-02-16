@@ -9,6 +9,14 @@ from utils import require_login
 class ExampleProvider(OAuthProvider):
 
     @property
+    def nonce_length(self):
+        return 20, 32
+
+    @property
+    def verifier_length(self):
+        return 20, 32
+
+    @property
     def enforce_ssl(self):
         return False
 
